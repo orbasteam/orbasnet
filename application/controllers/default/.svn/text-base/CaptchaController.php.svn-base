@@ -1,0 +1,18 @@
+<?php
+
+class CaptchaController extends Orbas_Controller_Action 
+{
+	/**
+	 * 設定navigation
+	 * 
+	 * @var bool
+	 */
+	protected $_navigation = false;
+	
+	public function indexAction()
+	{
+		$this->getHelper('Captcha')->output();
+	}
+}
+
+?>

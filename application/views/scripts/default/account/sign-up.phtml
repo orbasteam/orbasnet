@@ -1,0 +1,49 @@
+<div class="loginWrap">
+	<img src="/public/img/orbasLogo.png" alt="Orbas">
+	<div class="loginContainer">
+		<div class="loginHeader">
+			<h5><img src="/public/img/icons/14x14/pencil2.png" alt=""> Sign Up</h5>
+		</div>
+		
+		<form action="<?= $this->url(array('action' => 'sign.up.do'))?>" method="post">
+		
+			<label for="username">Email</label>
+			<div class="inputField">
+				<?= $this->formText('EMAIL', @$this->data['EMAIL'],  array('placeholder' => 'email'))?>
+				<img src="/public/img/icons/14x14/envlope1.png" alt="">
+			</div>
+			
+			<label for="password">密碼</label>
+			<div class="inputField">
+				<?= $this->formPassword('PASSWORD', null, array('placeholder' => 'password'))?>
+				<img src="/public/img/icons/14x14/lock3.png" alt="">
+			</div>
+			
+			<label for="password">確認密碼</label>
+			<div class="inputField">
+				<?= $this->formPassword('CONFIRM_PASSWORD', null, array('placeholder' => 'password'))?>
+				<img src="/public/img/icons/14x14/lock3.png" alt="">
+			</div>
+			
+			<label>驗證碼</label>
+			<div class="inputField row-fluid">
+				<div class="span8">
+					<?= $this->formText('captcha', null, array('placeholder' => '驗證碼', 'maxlength' => 4))?>
+				</div>
+				<div class="span4">
+					<a href="javascript:void(0)" onclick="OrbCaptchaReload()">
+					<img src="<?= $this->url(array('module' => 'common', 'controller' => 'captcha'), null, true)?>" class="captchaImage" id="captchaImage" style="top:2px" />
+					</a>
+				</div>
+			</div>
+			
+			<div class="fRight">
+				<a href="<?= $this->url(array('action' => 'login'))?>" class="button sButton bSky">Back</a>
+				<button type="submit" class="button sButton bOlive">Sign up</button>
+			</div>
+			
+			<div class="clearfix"></div>
+			
+		</form>
+	</div>
+</div>

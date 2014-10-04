@@ -1,0 +1,139 @@
+<?php
+
+class IndexController extends Orbas_Controller_Action
+{
+	protected $_title;
+
+    /**
+	 * @return the $_title
+	 */
+	public function getTitle() {
+		return $this->_title;
+	}
+
+	/**
+	 * @param field_type $_title
+	 */
+	public function setTitle($_title) {
+		$this->_title = $_title;
+	}
+
+	public function init()
+    {
+    	
+    }
+
+    /**
+     * 關於我們 (首頁)
+     * 
+     */
+    public function indexAction()
+    {
+    	$this->setTitle('關於我們');
+    }
+    
+    /**
+     * 成功案例
+     * 
+     */
+    public function caseAction()
+    {
+    	$this->setTitle('成功案例');
+    }
+    
+    /**
+     * 檢查項目
+     * 
+     */
+    public function itemsAction()
+    {
+    	$this->setTitle('檢查項目');
+    }
+    
+    /**
+     * 聯絡我們
+     * 
+     */
+    public function contactUsAction()
+    {
+    	$this->getMessageFromSession();
+    	
+    	$this->setTitle('聯絡我們');
+    }
+    
+    /**
+     * 聯絡我們 儲存
+     * 
+     */
+    public function contactUsDoAction()
+    {
+    	try{
+    		
+    		/*
+    		 * 必填欄位
+    		 */
+    		$mandatory = array(
+    			'NAME'	=> '姓名',
+    			'EMAIL'	=> 'EMAIL',
+    			'CONTENT' => '內容'
+    		);
+    		
+    		$postData = $this->getRequest()->getPost();
+
+    		# 檢查必填
+    		foreach($mandatory as $key => $value) {
+    			if(empty($postData[$key])){
+    				throw new Exception(sprintf('%s 不能空白', $value));
+    			}
+    		}
+
+    		/*
+    		 * 檢查email格式
+    		 */
+    		$emailValidator = new Zend_Validate_EmailAddress();
+    		if(!$emailValidator->isValid($postData['EMAIL'])){
+    			throw new Exception('email的格式錯誤');
+    		}
+    		
+	    	$postData['DATETIME'] = date('Y-m-d H:i:s');
+	    	
+	    	$this->getModel('Contact')->insert($postData);
+    		
+	    	$this->sessionSet('message', array(
+	    		'type'  => 'success',
+	    		'msg'	=> '您的訊息已送出，客服人員將會盡快回復您，謝謝！'
+	    	));
+	    	
+	    	$this->_helper->redirector('contact.us');
+	    	
+    	} catch (Exception $e){
+    		$this->sessionSet('message', array(
+    			'type'	=> 'error',
+    			'msg'	=> $e->getMessage()
+    		));
+    		$this->view->data = $postData;
+    	}
+    	
+    	$this->_forward('contact.us');
+    }
+    
+    /**
+     * FAQ
+     * 
+     */
+    public function faqAction()
+    {
+    	$this->setTitle('FAQ');
+    }
+    
+    public function boardAction()
+    {
+    	$this->setTitle('留言板');
+    }
+
+    public function postDispatch()
+    {
+    	$this->view->title = $this->getTitle();
+    }
+}
+

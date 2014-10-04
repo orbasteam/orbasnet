@@ -1,0 +1,132 @@
+<?php
+/**
+ * 留言板
+ * 
+ * @author Ivan
+ *
+ */
+class BoardController extends Orbas_Controller_Action 
+{
+	public function init()
+	{
+		parent::init();
+		
+		$this->view->addBasePath(APPLICATION_PATH . '/views/');
+		Zend_Paginator::setDefaultScrollingStyle('Sliding');
+		Zend_View_Helper_PaginationControl::setDefaultViewPartial(
+		    'common/paginator/default.phtml'
+		);
+		
+	}
+	
+	/**
+	 * 設定navigation
+	 * 
+	 * @var bool
+	 */
+	protected $_navigation = false;
+	
+	/**
+	 * 頁面title
+	 * 
+	 * @var string
+	 */
+	protected $_title = '留言板';
+	
+	public function indexAction()
+	{
+		$this->getMessageFromSession();
+		
+		$this->view->title = $this->_title;
+		$rows  = $this->getModel()->fetchAll('TYPE_KEY = ' . MESSAGE_LEAVE, 'DATETIME DESC');
+		
+		if($rows){
+			$rows = $rows->toArray();
+		}
+		
+		# 取得回應文
+		$result	  = array();
+		$response = $this->getModel()->fetchAll('TYPE_KEY = ' . MESSAGE_RESPONSE, 'DATETIME DESC');
+		if($response) {
+			foreach($response as $row){
+				$result[$row['BOARD_SN']][] = $row;
+			}
+		}
+		$this->view->response = $result;
+		
+		$paginator = new Zend_Paginator(new Zend_Paginator_Adapter_Array($rows));
+		$paginator->setCurrentPageNumber($this->getParam('page', 1));
+		$paginator->setItemCountPerPage(5);
+		$paginator->setView($this->view);
+		
+		$this->view->paginator = $this->view->rows = $paginator;
+
+		$user = $this->getHelper('Auth')->getIdentity('administer');
+		if($user){
+			$this->view->user = $user;
+		}
+	}
+	
+	protected $_mandatoryFields = array(
+		'NAME'		=> '姓名',
+		'GENDER'	=> '性別',
+		'CONTENT'	=> '內容'
+	);
+	
+	
+	/**
+	 * 新增留言
+	 * 
+	 */
+	public function appendDoAction()
+	{
+		$postData = $this->getRequest()->getPost();
+		
+		try {
+			
+			$postData = array_map('trim', $postData);
+			
+			foreach($this->_mandatoryFields as $field => $name){
+				if(empty($postData[$field])){
+					throw new Exception(sprintf('%s 不能空白', $name));
+				}
+			}
+			
+			$postData['IP'] = $this->getRequest()->getServer('REMOTE_ADDR');
+			$postData['DATETIME'] = date('Y-m-d H:i:s');
+			
+			$user = $this->getHelper('Auth')->getIdentity('administer');
+			
+			/*
+			 * 管理員不須驗證碼
+			 */
+			if(!$user){
+				if($this->getHelper('Captcha')->getWord() != $postData['captcha']){
+					throw new Exception('驗證碼錯誤');
+				}
+				
+				unset($postData['captcha']);
+			}
+			
+			$this->getModel()->insert($postData);
+			
+			$this->sessionSet('message', array(
+				'type'	=> 'success',
+				'msg'	=> '已送出留言，我們將盡快回覆您'
+			));
+			
+			$this->_helper->redirector('index');
+			
+		} catch (Exception $e){
+			$this->view->message = array(
+    			'type'	=> 'error',
+    			'msg'	=> $e->getMessage()
+    		);
+    		$this->view->data = $postData;
+		}
+		
+		$this->forward('index');
+	}
+}
+
+?>

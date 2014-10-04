@@ -1,0 +1,10 @@
+<?php
+
+/**
+ * 性別
+ * 
+ */
+define('MALE',   'M');    # 男性
+define('FEMALE', 'F');    # 女性
+
+?>

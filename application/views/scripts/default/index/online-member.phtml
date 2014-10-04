@@ -1,0 +1,16 @@
+<ul class="subnav-menu">
+    <? if($this->rows) { ?>
+    <? foreach($this->rows as $row) { ?>
+    <li>
+		<img src="<?= $row['avatar'] ?: '/img/custom/avatar.jpg' ?>" /> <?= $row['name']?>
+	</li>
+	<? } ?>
+    <? } ?>
+</ul>
+
+<style type="text/css">
+.subnav-menu li {
+	padding: 8px;
+	border-bottom: 1px solid #ccc;
+}
+</style>

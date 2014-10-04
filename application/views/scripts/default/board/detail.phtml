@@ -1,0 +1,157 @@
+<? $this->headLink()->appendStylesheet('/css/plugins/colorbox/colorbox.css')?>
+
+<? $this->headScript()->appendFile('/js/plugins/colorbox/jquery.colorbox-min.js') ?>
+<? $this->headScript()->appendFile('/js/expanding.js')?>
+<? $this->headScript()->appendFile('/js/yahoo-dom-event.js')?>
+<? $this->headScript()->appendFile('/js/url2link-yui.js')?>
+
+<? $user = Orbas_Auth::getUserInfo('SN', ROLE_MEMBER); ?>
+<div class="row-fluid">
+	<div class="blog-list-post" id="board">
+		<div class="post-comments">
+			<div class="jscroll-inner">
+				<div class="media" id="board-<?= $this->data['SN'] ?>" data-sn="<?= $this->data['SN'] ?>">
+                	<a href="#" class="pull-left">
+                		<img src="<?= $this->data['AVATAR'] ?: '/img/custom/avatar.jpg'?>" />
+                	</a>
+                	
+                	<div class="media-body">
+                		<h4 class="media-heading">
+                            <?= $this->data['NAME']?> <small><?= $this->timeParse($this->data['DATETIME'])?></small>
+                        </h4>
+                        
+                		<pre class="prettyprint" data-sn="<?= $this->data['SN'] ?>"><?= $this->data['CONTENT'] ?></pre>
+                		
+                		<div class="media-actions">
+                			<a href="javascript:void(0)" class="live-tipsy btn btn-blue <?= isset($this->userLike[$this->data['SN']][LIKE]) ? 'btn-red' : '' ?> btn-small" onclick="Orbas.like(this)" data-sn="<?= $this->data['SN'] ?>" data-type="like">
+                                <i class="icon-thumbs-up"></i> <span><?= isset($this->like[$this->data['SN']][LIKE]) ? $this->like[$this->data['SN']][LIKE] : 0?></span>
+                			</a>
+                			
+                			<a href="javascript:void(0)" class="live-tipsy btn btn-blue <?= isset($this->userLike[$this->data['SN']][DISLIKE]) ? 'btn-red' : '' ?> btn-small" onclick="Orbas.dislike(this)" data-sn="<?= $this->data['SN'] ?>" data-type="dislike">
+                                <i class="icon-thumbs-down"></i> <span><?= isset($this->like[$this->data['SN']][DISLIKE]) ? $this->like[$this->data['SN']][DISLIKE] : 0?></span>
+                			</a>
+                		</div>
+                		
+                		<hr />
+                		<? foreach($this->replys as $row) { ?>
+                        <div class="media" style="margin-top:10px; padding-bottom: 10px" id="board-<?= $row['SN'] ?>" data-sn="<?= $row['SN'] ?>">
+                        	<a class="pull-left" href="#">
+                        		<img src="<?= $row['AVATAR'] ?: '/img/custom/avatar.jpg'?>" />
+                        	</a>
+                        	<div class="media-body">
+                        		<h4 class="media-heading">
+                                    <?= $row['NAME']?> <small><?= $this->timeParse($row['DATETIME']) ?></small>
+                                    
+                                    <? if($user == $row['USER_SN']) { ?>
+                                    <span class="pull-right boaord-action hide" id="board-action-<?= $row['SN'] ?>">
+                                        <a href="javascript:void(0)" title="delete" onclick="deleteContent(<?= $row['SN'] ?>)"><small><i class="icon-remove"></i></small></a>
+                                    </span>
+                                    <? } ?>
+                                </h4>
+                        		<pre class="prettyprint"><?= $this->escape($row['CONTENT']) ?></pre>
+                        		
+                        		<div class="media-actions">
+                            		<a href="javascript:void(0)" class="live-tipsy btn btn-blue <?= isset($this->userLike[$row['SN']][LIKE]) ? 'btn-red' : '' ?> btn-small" onclick="Orbas.like(this)" data-sn="<?= $row['SN'] ?>" data-type="like">
+                                        <i class="icon-thumbs-up"></i> <span><?= isset($this->like[$row['SN']][LIKE]) ? $this->like[$row['SN']][LIKE] : 0?></span>
+                            		</a>
+                            		
+                            		<a href="javascript:void(0)" class="live-tipsy btn btn-blue <?= isset($this->userLike[$row['SN']][DISLIKE]) ? 'btn-red' : '' ?> btn-small" onclick="Orbas.dislike(this)" data-sn="<?= $row['SN'] ?>" data-type="dislike">
+                                        <i class="icon-thumbs-down"></i> <span><?= isset($this->like[$row['SN']][DISLIKE]) ? $this->like[$row['SN']][DISLIKE] : 0?></span>
+                            		</a>
+                            	</div>
+                        	</div>
+                        </div>
+                        <? } ?>
+                        
+                        <div class="media" style="margin-top:10px; padding-bottom: 10px">
+                            
+                            <textarea class="span12 controls" id="reply-textarea-<?= $this->data['SN'] ?>" onkeyup="Orbas.textareaKeyup(this, 'reply-submit-<?= $this->data['SN'] ?>')" placeholder="輸入回應"></textarea>
+                            <button disabled="disabled" class="btn btn-primary" type="button" onclick="ajaxReply(this)" data-sn="<?= $this->data['SN'] ?>" id="reply-submit-<?= $this->data['SN'] ?>">Submit</button>
+                		</div>
+                		
+                	</div>
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+$(function(){
+
+	$("pre.prettyprint").each(function(){
+
+		var _sn = $(this).attr('data-sn');
+		var $img = $(this).children('img');
+		if($img) {
+			$img.each(function(){
+				var _src = $(this).attr('src');
+				$(this).wrap('<a href="' + _src + '" class="colorbox-image" rel="group-' + _sn + '"></a>');
+			});
+
+			$(this).children('.colorbox-image').colorbox({
+				maxWidth: "90%",
+				maxHeight: "90%",
+				rel: $(this).attr("rel")
+			});
+		}
+	});
+
+	$("textarea").expandingTextarea();
+
+	URL2Link();
+});
+
+function ajaxReply(obj) {
+
+	var sn = $(obj).attr('data-sn');
+	var content = $("#reply-textarea-" + sn ).val();
+
+	$("#reply-textarea-" + sn).val('');
+	$(obj).button('loading');
+	
+	var _data = {
+		'BOARD_SN' : sn, 
+		'CONTENT' : content
+	};
+	
+	$.postq('orbas', '/default/board/submit', _data, function(response){
+		if(response.error == 1) {
+			Orbas.message('error', response.message);
+		} else {
+			window.location.reload(); 
+		}
+
+		$(obj).button('reset');
+	}, 'json');
+}
+
+function URL2Link() {
+	var YUD = YAHOO.util.Dom;
+	var YUE = YAHOO.util.Event;
+	YUE.onDOMReady(function () { 
+	  var dMsgs = YUD.get('board');
+	  updateURL2Link(dMsgs, {target:'_blank'});
+	});
+}
+</script>
+
+<style type="text/css">
+<? $this->headStyle()->captureStart() ?>
+textarea {
+	font-family: consolas;
+	font-size: 15px;
+}
+
+pre.prettyprint {
+    border: none;
+    background: none;
+}
+pre img {
+	max-width: 200px;
+	max-height: 200px;
+}
+
+<? $this->headStyle()->captureEnd() ?>>
+</style>

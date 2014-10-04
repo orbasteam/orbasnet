@@ -1,0 +1,41 @@
+<?= $this->divider()?>
+
+<div class="widget">
+
+    <div class="navbar">
+        <div class="navbar-inner">
+            <ul class="nav">
+                <li><a href="#"><img src="/img/icons/14x14/plus.png" />新增</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="wContent" align="center">
+        <table class="dTable">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>帳號</th>
+                    <th>名稱</th>
+                    <th>性別</th>
+                    <th>EMAIL</th>
+                    <th>最後修改</th>
+                    <th>操作人員</th>
+                </tr>
+            </thead>
+            <tbody>
+                <? foreach($this->rows as $row) { ?>
+                <tr>
+                    <td></td>
+                    <td><?= $row['UID']?></td>
+                    <td><?= $row['NAME']?></td>
+                    <td><?= $row['GENDER_KEY']?></td>
+                    <td><?= $row['EMAIL']?></td>
+                    <td><?= $row['UPDATE_TIME']?></td>
+                    <td><?= $row['UPDATE_USER_SN']?></td>
+                </tr>
+                <? } ?>
+            </tbody>
+        </table>
+    </div>
+</div>

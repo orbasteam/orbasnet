@@ -1,0 +1,7 @@
+<?php
+
+return array(
+    'A record with the supplied identity could not be found.' => '帳號密碼錯誤'
+);
+
+?>

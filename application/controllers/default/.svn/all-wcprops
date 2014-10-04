@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/pcmall/!svn/ver/2/pcmall-v3.0/application/controllers/default
+END
+CaptchaController.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/pcmall/!svn/ver/2/pcmall-v3.0/application/controllers/default/CaptchaController.php
+END
+IndexController.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/pcmall/!svn/ver/2/pcmall-v3.0/application/controllers/default/IndexController.php
+END
+BoardController.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/pcmall/!svn/ver/2/pcmall-v3.0/application/controllers/default/BoardController.php
+END
+AdministerController.php
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/pcmall/!svn/ver/2/pcmall-v3.0/application/controllers/default/AdministerController.php
+END

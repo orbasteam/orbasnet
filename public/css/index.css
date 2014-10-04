@@ -1,0 +1,41 @@
+textarea {
+	font-family: consolas;
+	font-size: 15px;
+}
+
+pre.prettyprint {
+    border: none;
+    background: none;
+}
+
+pre img {
+	max-width: 150px;
+	max-height: 150px;
+}
+
+.gallery {
+	margin: 0;
+	margin-top: 10px;
+}
+
+.gallery li img {
+	max-width: 150px;
+	max-height: 150px;
+}
+
+.fileinput-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.fileinput-button input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    opacity: 0;
+    -ms-filter: 'alpha(opacity=0)';
+    font-size: 200px;
+    direction: ltr;
+    cursor: pointer;
+}

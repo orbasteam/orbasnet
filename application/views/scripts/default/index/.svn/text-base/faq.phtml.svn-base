@@ -1,0 +1,19 @@
+<div class="banner">
+	<img src="/public/images/default/faq_banner.jpg" />
+</div>
+
+<div class="accordion" id="accordion2" style="background:#fafafa">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+        Q. 如何可以避免設計公司獅子大開口
+      </a>
+    </div>
+    <div id="collapseOne" class="accordion-body collapse">
+      <div class="accordion-inner">
+        A. 千萬記住，很重要的三件事就是: 合約書、估價單和施工圖。合約書明確記載了買賣雙方的權利義務，很多業主事前沒有跟設計師簽合約，事後有糾紛時也不知如何是好，這都於事無補; 估價單明確記載了各項工程的細項、材料和價格，有時間的消費者，可以由此來監督廠商施工是否有偷工減料，或使用次等材料，當然材料細項寫的越清楚，對業主保障就多一分; 施工圖明確記載了裝潢的造型和所會用的材質，這點很重要
+      </div>
+    </div>
+  </div>
+  
+</div>

@@ -1,0 +1,66 @@
+<div class="banner">
+	<img src="/public/images/default/j0001.jpg" />
+</div>
+
+<div class="span7">
+
+	<div class="contact-form">
+		<form method="post" action="/<?= $this->module?>/<?= $this->controller?>/contact.us.do" class="form-horizontal">
+		  <fieldset>
+		    <legend>聯絡表單</legend>
+		    <p>您可以透過下方表單，或利用右方資訊與我們聯絡。</p>
+		    
+		    <div id="message"></div>
+		    
+			<div class="control-group">
+			    <label>*姓名</label>
+			    <?= $this->formText('NAME', @$this->data['NAME'])?>
+			</div>
+
+			<div class="control-group">
+				<label>電話</label>
+				<?= $this->formText('PHONE', @$this->data['PHONE'])?>
+			</div>
+		    
+		    <div class="control-group">
+			    <label>*Email</label>
+			    <?= $this->formText('EMAIL', @$this->data['EMAIL'], array('class' => 'span12'))?>
+			</div>
+		    
+		    <div class="control-group">
+			    <label>*內容</label>
+			    <?= $this->formTextarea('CONTENT', @$this->data['CONTENT'], array(
+			    	'class' => 'span12',
+			    	'rows'	=> '6',
+			    	'style' => 'resize: none'
+			    ))?>
+		    </div>
+		    
+		    <input type="submit" class="btn" value="送出" />
+		  </fieldset>
+		</form>
+	</div>	
+
+</div>
+
+<div class="span4">
+	<div id="contact">
+		<fieldset>
+			<legend>聯絡資訊</legend>
+			<ul>
+				<li class="phone">0972923685</li>
+				<li class="email">boris090667@gmail.com </li>
+				<li class="email">flash662@gmail.com </li>
+			</ul>
+		</fieldset>
+	</div>
+	
+	<div id="facebook">
+		<fieldset>
+			<legend>Facebook 粉絲團</legend>
+			<a href="http://www.facebook.com/pages/%E8%A3%9D%E6%BD%A2%E9%A9%97%E6%94%B6%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8/532192126792609?ref=ts&fref=ts&__req=e" target="_blank">
+				<img src="/public/images/default/facebookIcon.jpg" />
+			</a>
+		</fieldset>
+	</div>
+</div>

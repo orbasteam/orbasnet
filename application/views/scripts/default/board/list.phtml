@@ -1,0 +1,83 @@
+<? if($this->rows) { ?>
+
+<? $user = Orbas_Auth::getUserInfo('SN', ROLE_MEMBER)?>
+<? foreach($this->rows as $row) { ?>
+<div class="media" id="board-<?= $row['SN'] ?>" data-sn="<?= $row['SN'] ?>">
+	<a href="#" class="pull-left">
+		<img src="<?= $row['AVATAR'] ?: '/img/custom/avatar.jpg'?>" />
+	</a>
+	
+	<div class="media-body">
+		<h4 class="media-heading">
+            <?= $row['NAME']?> <small><?= $this->timeParse($row['DATETIME'])?></small>
+            
+            <? if($user == $row['USER_SN']) { ?>
+            <span class="pull-right boaord-action hide" id="board-action-<?= $row['SN'] ?>">
+                <a href="javascript:void(0)" title="delete" onclick="deleteContent(<?= $row['SN'] ?>)"><small><i class="icon-remove"></i></small></a>
+            </span>
+            <? } ?>
+        </h4>
+        
+        <? $split = mb_split("\n", $row['CONTENT']);?>
+        <? if(count($split) <= 5) { ?>
+		<pre class="prettyprint" data-sn="<?= $row['SN'] ?>"><?= $row['CONTENT']?></pre>
+		<? } else { ?>
+		<pre class="prettyprint" data-sn="<?= $row['SN'] ?>"><? for ($i=0; $i<2; $i++) echo $split[$i] . "\n"?><a href="javascript:void(0)" onclick="$(this).hide().next('span').show()">更多</a><span style="display:none"><? for(;$i<count($split); $i++) echo $split[$i] . "\n"?></span></pre>
+		<? } ?>
+		<div class="media-actions">
+			<a href="javascript:void(0)" class="btn btn-blue btn-small reply" onclick="showReply(<?= $row['SN'] ?>)">
+                <i class="icon-comment-alt"></i> <?= isset($this->replys[$row['SN']]) ? $this->replys[$row['SN']] : 0?>
+			</a>
+
+			<a href="javascript:void(0)" class="live-tipsy btn btn-blue <?= isset($this->userLike[$row['SN']][LIKE]) ? 'btn-red' : '' ?> btn-small" onclick="Orbas.like(this)" data-sn="<?= $row['SN'] ?>" data-type="like">
+                <i class="icon-thumbs-up"></i> <span><?= isset($this->like[$row['SN']][LIKE]) ? $this->like[$row['SN']][LIKE] : 0?></span>
+			</a>
+			
+			<a href="javascript:void(0)" class="live-tipsy btn btn-blue <?= isset($this->userLike[$row['SN']][DISLIKE]) ? 'btn-red' : '' ?> btn-small" onclick="Orbas.dislike(this)" data-sn="<?= $row['SN'] ?>" data-type="dislike">
+                <i class="icon-thumbs-down"></i> <span><?= isset($this->like[$row['SN']][DISLIKE]) ? $this->like[$row['SN']][DISLIKE] : 0?></span>
+			</a>
+		</div>
+		
+		<div class="hide" id="reply-<?= $row['SN'] ?>">
+		  
+            <div class="reply-all"></div>
+    		
+    		<div class="media" style="margin-top:10px; padding-bottom: 10px">
+                <form method="post" action="/default/board/" id="reply">
+                    <textarea class="span12 controls" id="reply-textarea-<?= $row['SN'] ?>" onkeyup="Orbas.textareaKeyup(this, 'reply-submit-<?= $row['SN'] ?>')" placeholder="輸入回應"></textarea>
+                    <button disabled="disabled" data-loading="Saving..." class="btn btn-primary" type="button" onclick="ajaxReply(this)" data-sn="<?= $row['SN'] ?>" id="reply-submit-<?= $row['SN'] ?>">Submit</button>
+                </form>
+    		</div>
+		</div>
+		
+	</div>
+</div>
+
+<? } ?>
+
+<script type="text/javascript">
+$(function(){
+
+	$("pre.prettyprint").each(function(){
+
+		var _sn = $(this).attr('data-sn');
+		var $img = $(this).children('img');
+		if($img) {
+			$img.each(function(){
+				var _src = $(this).attr('src');
+				$(this).wrap('<a href="' + _src + '" class="colorbox-image" rel="group-' + _sn + '"></a>');
+			});
+
+			$(this).children('.colorbox-image').colorbox({
+				maxWidth: "90%",
+				maxHeight: "90%",
+				rel: $(this).attr("rel")
+			});
+		}
+	});
+});
+
+</script>
+
+<a href="<?= $this->simpleUrl('list', null, null, array('page' => ($this->param('page', 1)+1) )) ?>" class="jscroll-next">next page</a>
+<? } ?>

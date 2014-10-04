@@ -1,0 +1,113 @@
+<? $this->headLink()->appendStylesheet('/js/plugins/prettify/prettify.css')?>
+<? $this->headLink()->appendStylesheet('/css/plugins/colorbox/colorbox.css')?>
+<? $this->headLink()->appendStylesheet('/css/index.css')?>
+
+<? $this->headScript()->appendFile('/js/jquery.form.min.js')?>
+<? $this->headScript()->appendFile('/js/expanding.js')?>
+<? $this->headScript()->appendFile('/js/jquery.textarea.js')?>
+<? $this->headScript()->appendFile('/js/plugins/prettify/prettify.js')?>
+<? $this->headScript()->appendFile('/js/plugins/jscroll/jquery.jscroll.min.js')?>
+<? $this->headScript()->appendFile('/js/yahoo-dom-event.js')?>
+<? $this->headScript()->appendFile('/js/url2link-yui.js')?>
+
+<? $this->headScript()->appendFile('/js/plugins/fileupload/jquery.iframe-transport.js') ?>
+<? $this->headScript()->appendFile('/js/plugins/fileupload/jquery.fileupload.js') ?>
+<? $this->headScript()->appendFile('/js/plugins/fileupload/jquery.fileupload-fp.js') ?>
+<? $this->headScript()->appendFile('/js/plugins/fileupload/jquery.fileupload-ui.js') ?>
+<? $this->headScript()->appendFile('/js/plugins/colorbox/jquery.colorbox-min.js') ?>
+<? $this->headScript()->appendFile('/js/index.js') ?>
+
+	<div class="page-header" style="margin-bottom: 0">
+		<div class="row-fluid">
+    	    <div class="span12">
+                <div class="tab-pane active" id="t1">
+        	        <form action="<?= $this->simpleUrl('submit', 'board') ?>" method="post" id="board-form">
+            	        <textarea onkeyup="Orbas.textareaKeyup(this, 'submit')" class="input-block-level" id="CONTENT" name="CONTENT" style="min-height: 50px;"></textarea>
+            	        
+            	        <span class="btn btn-success fileinput-button">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            <span>上傳圖片</span>
+                            <!-- The file input field used as target for the file upload widget -->
+                            <input id="board-img-upload" type="file" name="file" multiple data-url="<?= $this->simpleUrl('upload.image') ?>">
+                        </span>
+    	                <button class="btn btn-primary" type="submit" id="submit" data-loading="saving..." disabled="disabled">Submit</button>
+
+    	                <a href="#shorten-url" class="btn btn-success pull-right" type="button" data-toggle="modal"><span>縮址</span></a>
+    	                
+    	                <div class="progress progress-striped hide" style="margin-top:10px" id="board-progress">
+							<div class="bar" style="width: 0%;"></div>
+                        </div>
+            	        
+            	        <ul class="gallery">
+            	           <? if($this->pictures) { ?>
+                           <? foreach($this->pictures as $picture) { ?>
+                           <li>
+    							<a href="#">
+    								<img src="<?= $picture?>" alt="">
+    							</a>
+    							<div class="extras">
+    								<div class="extras-inner">
+    									<a href="<?= $picture?>" class="colorbox-image" rel="group"><i class="icon-search"></i></a>
+    									<a href="#" class="del-gallery-pic"><i class="icon-trash"></i></a>
+    								</div>
+    							</div>
+    						</li>
+                           <? } ?>
+                           <? } ?>
+            	        </ul>
+            	    </form>
+            	</div>
+    	    </div>
+    	</div>
+	</div>
+	
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="box">
+				<div class="box-title" style="margin-top:0">
+					<h3>
+						<i class="icon-comments"></i>
+						塗鴉牆
+					</h3>
+				</div>
+				<div class="box-content nopadding">
+					<div class="blog-list-post">
+						<div class="post-comments" id="board"><img src="/img/loading.gif" /></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal hide" id="shorten-url" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">縮減網址</h4>
+				</div>
+				<div class="modal-body">
+				    <div class="control-group">
+				        <div class="input-append" style="width:80%">
+    				        <input type="text" style="width:100%" placeholder="請輸入網址" />
+    				        <button class="btn" type="button" id="shorten-url-submit" data-loading-text="Loading...">Submit</button>
+    				    </div>
+    				    <span class="help-block error hide">網址格式輸入錯誤</span>
+				    </div>
+				    
+				    <div class="control-group hide">
+				        <div class="input-append" style="width:90%">
+    				        <input type="text" style="width:75%" id="shorten-url-transformed"  />
+    				        <!-- button class="btn" type="button"><span>傳送到留言區塊</span></button -->
+    				    </div>
+				    </div>
+				    
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal"><span>關閉</span></button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>

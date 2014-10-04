@@ -1,0 +1,67 @@
+<div class="box">
+	<div class="box-title">
+		<h3>
+			<i class="glyphicon-log_book"></i>
+			Change Log
+		</h3>
+	</div>
+	<div class="box-content">
+	
+	    <? if($this->data) { ?>
+	
+        <ul class="timeline">
+            <? $date = new Zend_Date();?>
+            <? foreach($this->data as $data) { ?>
+            <? $date->setDate($data->date)?>
+            <li>
+                <div class="timeline-content">
+        			<div class="left">
+        				<div class="icon">
+        					<i class="icon-picture"></i>
+        				</div>
+        				<div class="date"><?= $date->get(Zend_Date::DATE_MEDIUM, 'en_US')?></div>
+        			</div>
+        			<div class="activity">
+        				<div class="user"><span>Version <?= $data->version?></span></div>
+        				
+        				<? if(isset($data->desc)) {
+        				    echo $data->desc;
+        				} ?>
+        				
+        				<? if(isset($data->change)) { ?>
+        				<ul>
+        				    <? foreach($data->change as $change) { ?>
+        				    <?
+        				        switch ($change->type) {
+        				        	case 'new':
+        				        	    $class = 'label-success'; 
+        				        	    break;
+        				        	case 'update':
+        				        	    $class = 'label-info';
+        				        	    break;
+        				        	case 'fix':
+        				        	    $class = 'label-important';
+        				        	    break; 
+                                } 
+        				    ?>
+        				    
+        				    <li><span class="label <?= $class?>"><?= ucfirst($change->type)?></span> <?= $change->desc?> </li>
+        				    <? } ?>
+        				</ul>
+        				<? } ?>
+        				
+        			</div>
+        		</div>
+        		<div class="line"></div>
+            </li>
+            <? } ?>
+        </ul>
+        <? } ?>
+	</div>
+</div>
+
+<style type="text/css">
+.timeline>li .timeline-content .left .date {
+	left: -33px;
+}
+</style>

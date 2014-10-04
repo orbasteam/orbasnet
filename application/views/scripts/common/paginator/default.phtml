@@ -1,0 +1,17 @@
+<? if ($this->pageCount) { ?>
+<div class="paginator">
+	<div class="pagination">
+	  <ul>
+  		<li class="<?= isset($this->previous) ? '' : 'disabled'?>"><a href="#">«</a></li>
+	  	<? foreach($this->pagesInRange as $page) { ?>
+	  		<? if($this->current == $page) { ?>
+	    	<li class="active"><a href="javascript:void(0)"><?= $page?></a></li>
+	    	<? } else { ?>
+	    	<li><a href="<?= $this->url(array('page' => $page))?>"><?= $page?></a>
+	    	<? } ?>
+	    <? } ?>
+	    <li class="<?= isset($this->next) ? '' : 'disabled'?>"><a href="#">»</a></li>
+	  </ul>
+	</div>
+</div>
+<? } ?>

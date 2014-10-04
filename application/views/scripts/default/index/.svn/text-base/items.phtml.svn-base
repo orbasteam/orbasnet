@@ -1,0 +1,32 @@
+<? $this->headScript()->captureStart()?>
+$(function(){
+	$(".my_tab_style1").tabs();
+});
+
+<? $this->headScript()->captureEnd()?>
+
+<div class="banner">
+	<img src="/public/images/default/j0001.jpg" />
+</div>
+
+<div class="my_tabs my_tab_style1">					
+	<ul class="tab-nav tab-clearfix">
+		<li><a href="#tab-1">驗收工具</a></li>
+		<li><a href="#tab-2">驗收檢查表</a></li>
+	</ul>
+	<div id="tab-1" class="my_tab">
+		<img src="/public/images/default/items/300005_533054443373044_570268391_n.jpg" />
+	</div>
+	<div id="tab-2" class="my_tab">
+		裝潢驗收檢查表(參考)  檢查項目達150項
+		<img src="/public/images/default/items/73236_533054860039669_68922850_n.jpg" />
+		<hr />
+		<img src="/public/images/default/items/315871_533054943372994_1200130687_n.jpg" />
+		<hr />
+		<img src="/public/images/default/items/380870_533054996706322_1299143771_n.jpg" />
+		<hr />
+		<img src="/public/images/default/items/424808_533054980039657_404350795_n.jpg" />
+		<hr />
+		<img src="/public/images/default/items/526802_533054913372997_1112027404_n.jpg" />
+	</div>
+</div>

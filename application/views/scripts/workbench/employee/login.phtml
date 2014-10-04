@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Atina - Premium Admin Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="/public/css/bootstrap.css" rel="stylesheet">
+    <link href="/public/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="/public/css/general.css" rel="stylesheet">
+    <link href="/public/css/colors/noise-red.css" rel="stylesheet" id="theme">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <link href="/public/css/ie8.css" rel="stylesheet">
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="/public/js/respond/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/public/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/public/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/public/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="/public/ico/favicon.png">
+
+    <script type="text/javascript">
+      //* hide all elements & show preloader
+      document.documentElement.className += 'loader';
+    </script>
+  </head>
+
+  <body>
+
+    <div class="mainContainer">
+      <div class="loginWrap">
+        <img src="/public/img/loginLogo.png" alt="">
+          <div class="loginContainer">
+            <div class="loginHeader">
+              <h5><img src="/public/img/icons/14x14/lock3.png" alt=""> Login</h5>
+            </div>
+            <form action="<?= $this->url(array('action' => 'login.do'))?>" method="post" id="validateLogin">
+            
+                <label for="username">帳號</label>
+                <div class="inputField">
+                	<?= $this->formText('UID', null,  array('placeholder' => 'username'))?>
+                  <img src="/public/img/icons/14x14/member2.png" alt="">
+                </div>
+                
+                <label for="password">密碼</label>
+                <div class="inputField">
+                	<?= $this->formPassword('PASSWORD', null, array('placeholder' => 'password'))?>
+                  <img src="/public/img/icons/14x14/lock3.png" alt="">
+                </div>
+                
+                <label>驗證碼</label>
+                <div class="inputField row-fluid">
+                    <div class="span8">
+                        <?= $this->formText('captcha', null, array('placeholder' => '驗證碼'))?>
+                    </div>
+                    <div class="span4">
+                        <a href="javascript:void(0)" onclick="OrbCaptchaReload()">
+                            <img src="/default/captcha/" class="captchaImage" id="captchaImage" style="top:2px" />
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="checkX">
+                  <label class="formButton"><input type="checkbox" name="check" checked> <span>Remember me</span></label>
+                </div>
+                <button type="submit" class="button noMargin sButton blockButton bOlive">Log in</button>
+              </form>
+          </div>
+        </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/public/js/jquery-1.8.3.js"></script>
+    <script src="/public/js/ui/jquery-ui-1.9.2.custom.js"></script>
+
+    <!-- Jquery form wizard -->
+    <script src="/public/js/formWizard/jquery.form.js"></script>    
+    <script src="/public/js/formWizard/jquery.validate.js"></script>    
+    <script src="/public/js/formWizard/bbq.js"></script>  
+    <script src="/public/js/formWizard/jquery.form.wizard.js"></script>
+
+    <!-- antiscroll plugin -->
+    <script src="/public/js/scrollbar/jquery.mCustomScrollbar.js"></script>
+
+    <!-- fullcalendar plugin -->
+    <script src="/public/js/fullcalendar/fullcalendar.js"></script>
+
+    <!-- tipsyS plugin -->
+    <script src="/public/js/tipsy/jquery.tipsy.js"></script>
+
+    <!-- fancybox plugin -->
+    <script src="/public/js/fancybox/jquery.fancybox.pack.js"></script>
+
+    <!-- uniform plugin -->
+    <script src="/public/js/uniform/jquery.uniform.js"></script>
+
+    <!-- Jquery dataTable -->
+    <script src="/public/js/dataTable/jquery.dataTables.js"></script>
+
+    <!-- uniform plugin -->
+    <script src="/public/js/sparklines/jquery.sparkline.js"></script>
+
+    <!-- chosen plugin -->
+    <script src="/public/js/chosen/chosen.jquery.js"></script>
+
+    <!-- cookie plugin -->
+    <script src="/public/js/cookie/jquery.cookie.js"></script>
+
+    <!-- jplayer plugin -->
+    <script src="/public/js/jplayer/jquery.jplayer.min.js"></script>
+
+    <!-- mask plugin -->
+    <script src="/public/js/mask/jquery.maskedinput-1.3.js"></script>
+
+    <!-- easypiechart plugin -->
+    <script src="/public/js/easypiechart/jquery.easy-pie-chart.js"></script>
+
+    <!-- globalize plugin -->
+    <script src="/public/js/globalize/globalize.js"></script>
+    <script src="/public/js/globalize/cultures/globalize.culture.de.js"></script>
+
+    <!-- jplayer plugin -->
+    <script src="/public/js/jplayer/jquery.jplayer.min.js"></script>
+    <script src="/public/js/jplayer/jplayer.playlist.min.js"></script>
+
+    <!-- ibutton plugin -->
+    <script src="/public/js/ibutton/jquery.ibutton.js"></script>
+
+    <!-- daterangepicker plugin -->
+    <script src="/public/js/dateRangepicker/date.js"></script>
+    <script src="/public/js/dateRangepicker/daterangepicker.jQuery.js"></script>
+
+    <!-- antiscroll plugin -->
+    <script src="/public/js/antiscroll/jquery-mousewheel.js"></script>    
+    <script src="/public/js/antiscroll/antiscroll.js"></script>   
+
+    <!-- cleditor plugin -->
+    <script src="/public/js/cleditor/jquery.cleditor.js"></script>   
+
+    <script src="/public/js/bootstrap.min.js"></script>   
+    <script src="/public/js/application.js"></script>      
+
+    <script src="/public/js/general.js"></script>
+    <script src="/public/js/forms.js"></script>
+    <script type="text/javascript" src="/public/js/orbas.js"></script>
+
+    <script>
+      $(document).ready(function() {
+        setTimeout('$("html").removeClass("loader")',1000);
+      });
+    </script>
+
+    <?= $this->placeholder('SystemMsg')?>
+    
+  </body>
+</html>

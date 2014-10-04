@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Atina - Premium Admin Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="/public/css/bootstrap.css" rel="stylesheet" />
+    <link href="/public/css/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="/public/css/general.css" rel="stylesheet" />
+    <link href="/public/css/colors/noise-blue.css" rel="stylesheet" id="theme" />
+    <link href="/public/css/application.css" rel="stylesheet" />
+    <link href="/public/css/fix.css" rel="stylesheet" />
+	<?= $this->headLink()?>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <link href="/public/css/ie8.css" rel="stylesheet">
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="/public/js/respond/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/public/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/public/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/public/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="/public/ico/favicon.png">
+
+    <script src="/public/js/jquery-1.8.3.js"></script>
+    <script src="/public/js/ui/jquery-ui-1.9.2.custom.js"></script>
+    <?= $this->headScript()?>
+    
+    <script type="text/javascript">
+      //* hide all elements & show preloader
+      document.documentElement.className += 'loader';
+
+      $(window).load(function(){
+    	  $("html").removeClass("loader");
+      });
+
+      $(function(){
+
+    	  // 修正maincontent高度
+    	  $(window).resize(function(){
+    		  var height = $(window).height();
+    		  $(".mainContainer").eq(0).css('min-height', height);
+  		  }).resize();
+          
+      });
+      
+    </script>
+    
+  </head>
+
+  <body>
+
+    <div class="loading"><img src="/public/img/ajaxLoader/loader01.gif" alt=""></div>
+
+    <div class="mainContainer">
+
+      <div class="containerNav">
+        <?= $this->navigation()->noFluidNavigation()?>
+      </div>
+
+      <header>
+        <div>
+          <a href="#" class="logo"><img src="/public/img/logo.png" alt=""></a>
+          
+          <ul class="headerButtons">
+            <li class="search"><a href="#"><img src="/public/img/icons/14x14/light/magnifier.png" alt=""></a>
+              <div class="searchbox">
+                <div class="input-append">
+                  <input size="16" type="text" placeHolder="Search for something">
+                  <button class="btn" type="button"><img src="/public/img/icons/14x14/magnifier.png" alt=""></button>
+                </div>
+              </div>
+            </li>
+            <li class="respNav"><a href="#"><img src="/public/img/respNav-list.png" alt=""></a></a></li>
+            <li class="conta"><a href="#" class="changeContainer"><span class="container"></span></a></li>
+            <li><a href="#"><img src="/public/img/icons/14x14/light/cog.png" alt=""></a></li>
+            <li class="layout"><a href="#" class="layoutChange"><span class="layoutLeft"></span></a></li>
+            <li><a href="#"><img src="/public/img/icons/14x14/light/lock3.png" alt=""></a></li>
+          </ul>
+        </div>
+      </header>
+
+      <div class="widgetBar">
+        <div class="barInner">
+            <?= $this->navigation()->systemMenu()?>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="styleChoose">
+          <a href="#" class="pullStyle"><span><img src="/public/img/icons/14x14/cog2.png" alt=""></span></a>
+          <div class="colors">
+            <ul id="styling">
+              <li><a href="javascript:void(0)" title="noise-black" id="noise-black"></a></li>
+              <li><a href="javascript:void(0)" title="noise-red" id="noise-red"></a></li>
+              <li><a href="javascript:void(0)" title="noise-green" id="noise-green"></a></li>
+              <li><a href="javascript:void(0)" title="noise-orange" id="noise-orange"></a></li>
+              <li><a href="javascript:void(0)" title="noise-blue" id="noise-blue"></a></li>
+              <li><a href="javascript:void(0)" title="noise-purple" id="noise-purple"></a></li>
+              <li><a href="javascript:void(0)" title="noise-yellow" id="noise-yellow"></a></li>
+            </ul>
+          </div>
+          <div class="settings">
+            <div class="navStyle">
+              <label class="formButton"><input type="radio" name="check" id="lnav" checked="checked"> <span>Left navigation</span></label>
+              <label class="formButton"><input type="radio" name="check" id="tnav"> <span>Top navigation</span></label>
+            </div>
+            <div class="patternchange">
+              <span>Container pattern:</span>
+              <ul class="containerPattern">
+                <li><a href="#" id="pattern01"><img src="/public/img/patterns/pattern01.png" alt=""></a></li>
+                <li><a href="#" id="pattern02"><img src="/public/img/patterns/pattern02.png" alt=""></a></li>
+                <li><a href="#" id="pattern03"><img src="/public/img/patterns/pattern03.png" alt=""></a></li>
+                <li><a href="#" id="pattern04"><img src="/public/img/patterns/pattern04.png" alt=""></a></li>
+                <li><a href="#" id="pattern05"><img src="/public/img/patterns/pattern05.png" alt=""></a></li>
+                <li><a href="#" id="pattern06"><img src="/public/img/patterns/pattern06.png" alt=""></a></li>
+                <li><a href="#" id="pattern07"><img src="/public/img/patterns/pattern07.png" alt=""></a></li>
+                <li><a href="#" id="pattern08"><img src="/public/img/patterns/pattern08.png" alt=""></a></li>
+                <li><a href="#" id="pattern09"><img src="/public/img/patterns/pattern09.png" alt=""></a></li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="topBar">
+          <div class="topBarInner">
+            <ul class="breadcrumbs">
+              <li><a href="#"><img src="/public/img/icons/14x14/home5.png" alt=""></a></li>
+              <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">UI elements <span class="arrow"></span></a>
+                <ul class="dropdown-menu pull-left">
+                  <li><a href="#">Main UI elements</a></li>
+                  <li><a href="#">Messages</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Buttons</a></li>
+            </ul>
+
+            <ul class="profile barButtons">
+              <li class="profile">
+                  <a href="#"><img src="/public/img/icons/14x14/member2.png" alt=""> <?= $this->user['NAME']?> <span class="arrow"></span></a>
+                <ul>
+                  <div class="profileInfo clearfix">
+                    <img src="/public/preview/avatar.jpg" alt="">
+                    <div class="info">
+                      <h5><?= $this->user['NAME']?></h5>
+                      <a href="#"><?= @$this->user['EMAIL']?></a>
+                    </div>
+                  </div>
+                  <!-- li><a href="#"><img src="/public/img/icons/14x14/random.png" alt=""> Basic settings</a></li>
+                  <li><a href="#"><img src="/public/img/icons/14x14/lock3.png" alt=""> User settings</a></li>
+                  <li><a href="#"><img src="/public/img/icons/14x14/cog2.png" alt=""> Preferences</a></li -->
+                  <li><a href="/workbench/employee/logout"><img src="/public/img/icons/14x14/lock3.png" alt="">登出</a></li>
+                </ul>
+              </li>
+            </ul>
+            
+            <ul class="barButtons">
+              <li><a href="#"><img src="/public/img/icons/14x14/cog.png" alt=""> Settings <span class="arrow"></span></a>
+                <ul>
+                  <li><a href="#"><img src="/public/img/icons/14x14/random.png" alt=""> Basic settings</a></li>
+                  <li><a href="#"><img src="/public/img/icons/14x14/lock3.png" alt=""> User settings</a></li>
+                  <li><a href="#"><img src="/public/img/icons/14x14/cog2.png" alt=""> Preferences</a></li>
+                </ul>
+              </li>
+              <li><a href="#"><img src="/public/img/icons/14x14/pad.png" alt=""> New orders <strong>(5)</strong></a></li>
+              <li><a href="#"><img src="/public/img/icons/14x14/box2.png" alt=""> Monthly reports <span class="arrow"></span></a>
+                <ul>
+                  <li><a href="#"><img src="/public/img/icons/14x14/box2.png" alt=""> <strong>January 2013</strong></a>
+                    <a href="#" class="ctrlButton"><img src="/public/img/icons/14x14/download4.png" alt=""></a></li>
+                  <li><a href="#"><img src="/public/img/icons/14x14/box2.png" alt=""> December 2012</a>
+                      <a href="#" class="ctrlButton"><img src="/public/img/icons/14x14/download4.png" alt=""></a></li>
+                  <li><a href="#"><img src="/public/img/icons/14x14/box2.png" alt=""> November 2012</a>
+                      <a href="#" class="ctrlButton"><img src="/public/img/icons/14x14/download4.png" alt=""></a></li>
+                  <li><a href="#"><img src="/public/img/icons/14x14/box2.png" alt=""> October 2012</a>
+                      <a href="#" class="ctrlButton"><img src="/public/img/icons/14x14/download4.png" alt=""></a></li>
+                  <li><a href="#"><img src="/public/img/icons/14x14/box2.png" alt=""> September 2012</a>
+                      <a href="#" class="ctrlButton"><img src="/public/img/icons/14x14/download4.png" alt=""></a></li>
+                  <li><a href="#"><img src="/public/img/icons/14x14/box2.png" alt=""> August 2012</a>
+                      <a href="#" class="ctrlButton"><img src="/public/img/icons/14x14/download4.png" alt=""></a></li>
+                  <li><a href="#"><img src="/public/img/icons/14x14/box2.png" alt=""> July 2012</a>
+                      <a href="#" class="ctrlButton"><img src="/public/img/icons/14x14/download4.png" alt=""></a></li>
+                  <li><a href="#"><img src="/public/img/icons/14x14/box2.png" alt=""> June 2012</a>
+                      <a href="#" class="ctrlButton"><img src="/public/img/icons/14x14/download4.png" alt=""></a></li>
+                  <li><a href="#"><img src="/public/img/icons/14x14/box2.png" alt=""> May 2012</a>
+                      <a href="#" class="ctrlButton"><img src="/public/img/icons/14x14/download4.png" alt=""></a></li>
+                  <li><a href="#"><img src="/public/img/icons/14x14/random.png" alt=""> View all reports</a></li>
+                </ul>
+              </li>
+              <li><a href="#"><img src="/public/img/icons/14x14/file.png" alt=""> Invoices <span class="arrow"></span></a>
+                <ul>
+                  <li><a href="#"><img src="/public/img/icons/14x14/printer2.png" alt=""> Print latest invoice</li></a>
+                  <li><a href="#"><img src="/public/img/icons/14x14/box2.png" alt=""> Invoice archive</a></li>
+                  <li><a href="#"><img src="/public/img/icons/14x14/plus.png" alt=""> Create new invoice</a></li>
+                </ul>
+              </li>
+              <li><a href="#"><img src="/public/img/icons/14x14/envlope1.png" alt=""> Messages <strong>(3)</strong> <span class="arrow"></span></a>
+                <ul>
+                  <li><a href="#"><img src="/public/img/icons/14x14/plus.png" alt=""> New message</a></li>
+                  <li><a href="#"><img src="/public/img/icons/14x14/download4.png" alt=""> Inbox <strong>(3)</strong></a></li>
+                  <li><a href="#"><img src="/public/img/icons/14x14/upload4.png" alt=""> Outbox</a></li>
+                  <li><a href="#"><img src="/public/img/icons/14x14/trash.png" alt=""> Trash</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="contentInner">
+        	<?= $this->layout()->content?>
+		</div>
+        
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <!-- flot plugin -->
+    <script src="/public/js/flot/excanvas.min.js"></script>    
+    <script src="/public/js/flot/jquery.flot.js"></script>    
+    <script src="/public/js/flot/jquery.flot.pie.min.js"></script>
+    <script src="/public/js/flot/jquery.flot.resize.js"></script>
+    <script src="/public/js/flot/jquery.flot.orderBars.js"></script>
+
+    <!-- Jquery form wizard -->
+    <script src="/public/js/formWizard/jquery.form.js"></script>    
+    <script src="/public/js/formWizard/jquery.validate.js"></script>    
+    <script src="/public/js/formWizard/bbq.js"></script>  
+    <script src="/public/js/formWizard/jquery.form.wizard.js"></script>
+
+    <!-- antiscroll plugin -->
+    <script src="/public/js/scrollbar/jquery.mCustomScrollbar.js"></script>
+
+    <!-- fullcalendar plugin -->
+    <script src="/public/js/fullcalendar/fullcalendar.js"></script>
+
+    <!-- tipsyS plugin -->
+    <script src="/public/js/tipsy/jquery.tipsy.js"></script>
+
+    <!-- fancybox plugin -->
+    <script src="/public/js/fancybox/jquery.fancybox.pack.js"></script>
+
+    <!-- uniform plugin -->
+    <script src="/public/js/uniform/jquery.uniform.js"></script>
+
+    <!-- Jquery dataTable -->
+    <script src="/public/js/dataTable/jquery.dataTables.js"></script>
+
+    <!-- uniform plugin -->
+    <script src="/public/js/sparklines/jquery.sparkline.js"></script>
+
+    <!-- chosen plugin -->
+    <script src="/public/js/chosen/chosen.jquery.js"></script>
+
+    <!-- cookie plugin -->
+    <script src="/public/js/cookie/jquery.cookie.js"></script>
+
+    <!-- jplayer plugin -->
+    <script src="/public/js/jplayer/jquery.jplayer.min.js"></script>
+
+    <!-- mask plugin -->
+    <script src="/public/js/mask/jquery.maskedinput-1.3.js"></script>
+
+    <!-- easypiechart plugin -->
+    <script src="/public/js/easypiechart/jquery.easy-pie-chart.js"></script>
+
+    <!-- globalize plugin -->
+    <script src="/public/js/globalize/globalize.js"></script>
+    <script src="/public/js/globalize/cultures/globalize.culture.de.js"></script>
+
+    <!-- jplayer plugin -->
+    <script src="/public/js/jplayer/jquery.jplayer.min.js"></script>
+    <script src="/public/js/jplayer/jplayer.playlist.min.js"></script>
+
+    <!-- ibutton plugin -->
+    <script src="/public/js/ibutton/jquery.ibutton.js"></script>
+
+    <!-- daterangepicker plugin -->
+    <script src="/public/js/dateRangepicker/date.js"></script>
+    <script src="/public/js/dateRangepicker/daterangepicker.jQuery.js"></script>
+
+    <!-- antiscroll plugin -->
+    <script src="/public/js/antiscroll/jquery-mousewheel.js"></script>    
+    <script src="/public/js/antiscroll/antiscroll.js"></script>   
+
+    <!-- cleditor plugin -->
+    <script src="/public/js/cleditor/jquery.cleditor.js"></script>    
+
+    <script src="/public/js/bootstrap.min.js"></script>
+    <script src="/public/js/application.js"></script>      
+
+    <script src="/public/js/general.js"></script>
+    <!-- script src="/public/js/forms.js"></script -->
+    <script src="/public/js/dashboard.js"></script>
+
+  </body>
+</html>

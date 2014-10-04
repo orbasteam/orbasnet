@@ -1,0 +1,184 @@
+<? $this->headScript()->appendFile('/js/plugins/fileupload/jquery.iframe-transport.js') ?>
+<? $this->headScript()->appendFile('/js/plugins/fileupload/jquery.fileupload.js') ?>
+<? $this->headScript()->appendFile('/js/plugins/fileupload/jquery.fileupload-fp.js') ?>
+<? $this->headScript()->appendFile('/js/plugins/fileupload/jquery.fileupload-ui.js') ?>
+<? $this->headScript()->appendFile('/js/plugins/pulsate/jquery.pulsate.min.js')?>
+
+<div class="container-fluid">
+    <div class="box box-color box-bordered">
+    	<div class="box-title">
+    		<h3>
+    			<i class="icon-user"></i>
+    			Edit user profile
+    		</h3>
+    	</div>
+    	<div class="box-content nopadding">
+    		<div class="tab-content padding tab-content-inline tab-content-bottom">
+    			<div class="tab-pane active" id="profile">
+    				<form action="<?= $this->simpleUrl('save') ?>" class="form-horizontal" method="post">
+    					<div class="row-fluid">
+    						<div class="span2">
+    							<div class="fileupload fileupload-new" data-provides="fileupload">
+    								<div class="thumbnail" style="max-width: 200px; max-height: 150px;"><img src="<?= $this->data['AVATAR'] ?: '/img/custom/avatar.jpg'?>"></div>
+    							    <input type="file" name="AVATAR" id="AVATAR" data-url="<?= $this->simpleUrl('upload.image')?>" />
+    							</div>
+    							
+    							<div class="progress progress-success progress-striped margin-top-10" id="progress">
+                                    <div class="bar" style="width: 0%;"></div>
+                                </div>
+                                
+    						</div>
+    						<div class="span10">
+    						
+                                <div class="control-group">
+    								<label for="EMAIL" class="control-label right">Email:</label>
+    								<div class="controls">
+    								    <p class="static"><?= Orbas_Auth::getUserInfo('EMAIL', ROLE_MEMBER) ?></p>
+    								</div>
+    							</div>
+    						
+    							<div class="control-group">
+    								<label for="NAME" class="control-label right">Name:</label>
+    								<div class="controls">
+    								    <?= $this->formText('NAME', $this->data['NAME'], array('class' => 'input-xlarge'))?>
+    								</div>
+    							</div>
+    							
+    							<div class="control-group">
+                                    <label for="PASSWORD" class="control-label right">Password:</label>
+                                    <div class="controls">
+                                        <?= $this->formPassword('PASSWORD', null, array('class' => 'input-xlarge'))?>
+                                    </div>
+    							</div>
+    							
+    							<div class="control-group">
+                                    <label for="PASSWORD" class="control-label right">Confirm Password:</label>
+                                    <div class="controls">
+                                        <?= $this->formPassword('CONFIRM_PASSWORD', null, array('class' => 'input-xlarge'))?>
+                                    </div>
+    							</div>
+    							
+    							<div class="form-actions">
+    								<input type="submit" class="btn btn-primary" value="Save">
+    								<input type="reset" class="btn" value="Reset">
+    							</div>
+    							
+    							<hr />
+    							
+    							<div class="control-group">
+                                    <label for="PASSWORD" class="control-label right">桌面通知:</label>
+                                    <div class="controls">
+                                        <button type="button" class="btn btn-primary" id="notification" data-enable="<?= $this->data['NOTIFICATION'] ?>" data-loading-text="切換中...">
+                                            <span><?= $this->data['NOTIFICATION'] ? '關閉桌面通知' : '開啟桌面通知'?></span>
+                                        </button>
+                                        <div class="help-block">限Chrome瀏覽器。開啟後第一次瀏覽器會詢問是否允許開啟，請選擇允許。</div>
+                                    </div>
+    							</div>
+    							
+    						</div>
+    					</div>
+    				</form>
+    			</div>
+    			
+    		</div>
+    	</div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+	
+    $("#AVATAR").fileupload({
+        
+    	add: function (e, data) {
+            $("#progress").show();
+            data.submit();
+        },
+        
+        progressall: function (e, data) {
+
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $("#progress .bar").css('width', progress + '%');
+
+            if(progress >= 100) {
+                $("#progress").hide();
+            }
+    	},
+        done: function (e, data) {
+            var response = $.parseJSON(data.jqXHR.responseText);
+
+            if(response.error == 1) {
+
+            	if(response.message instanceof Object) {
+                	var _string = '';
+                	$.each(response.message, function(i, val){
+                    	_string += val;
+                    	_string += '<br />';
+                    })
+            	} else {
+                	_string = response.message;
+            	}
+            	
+            	Orbas.message('error', _string);
+            	$("#dlgProgress").modal('hide');
+            } else {
+                window.location.reload();
+            }
+        }
+    });
+
+    $("#notification").click(function(){
+
+        var $button = $(this);
+
+        if($button.attr('data-enable') == 0) {
+
+            var notification = window.Notification;
+
+        	if(notification.permission != 'granted') {
+        		notification.requestPermission(function(){
+            		if(notification.permission != 'granted') {
+                    	return false;
+                	} else {
+                		$button.click();
+                	}
+                });
+
+                return false;
+        	}
+        }
+
+        $button.button('loading');
+        $.get('<?= $this->simpleUrl('switch.notification') ?>', function(response){
+
+            $button.button('reset');
+            
+            if(!isNaN(response)) {
+
+                if(parseInt(response) == 1) {
+                    $button.html('<span>關閉桌面通知</span>');
+                } else {
+                    $button.html('<span>開啟桌面通知</span>');
+                }
+
+                $button.attr('data-enable', response);
+                
+            } else {
+            	Orbas.message('error', response);
+            }
+
+        });
+        
+    });
+
+    var hash = window.location.hash.substr(1);
+    if(hash && $("#" + hash).length > 0) {
+        $("#" + hash).pulsate({
+            color:"#09f",
+            reach: 50,
+            repeat : 5
+        });
+    }
+});
+
+</script>

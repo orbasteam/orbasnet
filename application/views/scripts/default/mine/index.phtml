@@ -1,0 +1,69 @@
+<? $this->headScript()->appendFile('/js/plugins/sparklines/jquery.sparklines.min.js')?>
+<? $this->headScript()->appendFile('/js/plugins/easy-pie-chart/jquery.easy-pie-chart.min.js')?>
+
+<? $this->headLink()->appendStylesheet('/css/plugins/easy-pie-chart/jquery.easy-pie-chart.css')?>
+
+<div class="page-header">
+    
+    <div class="page-header">
+        <div class="pull-left">
+			<h1>挖礦遊戲</h1>
+		</div>
+		<div class="pull-right">
+            <h1><i class="icon-question-sign"></i></h1>
+		</div>
+    </div>
+    
+    <div class="row-fluid">
+        <div class="span12">
+        
+            <div class="form-horizontal">
+                <div class="control-group" style="margin-bottom:0">
+                	<label class="control-label right">體力恢復時間</label>
+                	<div class="controls">
+                		<div style="padding-top:6px">
+                			<div class="span2">
+                				30分18秒
+                			</div>
+                			<div class="span10">
+                				<div class="progress progress-info">
+        							<div class="bar" style="width: 100%"></div>
+        						</div>
+                			</div>
+                		</div>
+                	</div>
+                </div>
+            
+                <div class="control-group" style="margin-bottom:0">
+                    <label class="control-label right">體力</label>
+                    <div class="controls">
+                        <div style="padding-top:6px">
+                            <div class="span2">20/100</div>
+                            <div class="span10">
+                                <div class="progress progress-info">
+        							<div class="bar" style="width: 20%"></div>
+        						</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span12">
+            <table class="table table-bordered table-force-topborder">
+                <? for($i=0; $i<10; $i++) { ?>
+                <tr>
+                    <? for($k=0; $k<10; $k++) { ?>
+                    <td><img src="/img/custom/mine.png" /></td>
+                    <? } ?>
+                </tr>
+                <? } ?>
+                
+            </table>
+        </div>
+    </div>
+</div>

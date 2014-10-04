@@ -1,0 +1,102 @@
+<?php
+/**
+ * 管理者登入登出
+ * 
+ * @author Ivan
+ *
+ */
+class AdministerController extends Orbas_Controller_Action 
+{
+	/**
+	 * 登入
+	 * 
+	 */
+	public function loginAction()
+	{
+		$this->view->title = '管理者登入';
+		
+	}
+	
+	/**
+	 * 
+	 * @var Zend_Auth_Adapter_DbTable
+	 */
+	protected $_authAdapter;
+
+	/**
+	 *
+	 * @return Zend_Auth_Adapter_DbTable
+	 */
+	public function getAuthAdapter()
+	{
+		if(!$this->_authAdapter){
+			$this->_authAdapter = new Zend_Auth_Adapter_DbTable(Zend_Db_Table::getDefaultAdapter());
+			$this->_authAdapter
+				 ->setTableName('employee')
+				 ->setIdentityColumn('ID')
+				 ->setCredentialColumn('PASSWORD');
+		}
+		
+		return $this->_authAdapter;
+	}
+	
+	/**
+	 * 實作登入
+	 * 
+	 */
+	public function loginDoAction()
+	{
+		try{
+			$postData = $this->getRequest()->getPost();
+			
+			$auth = $this->getHelper('Auth');
+			$auth->setTableName('employee');
+			
+			$auth->login($postData, 'administer');
+			
+			$this->_helper->redirector('index', 'board');
+			
+		} catch (Orbas_Auth_Exception $e) {
+			$this->view->message = array(
+    			'type'	=> 'error',
+    			'msg'	=> $e->getFirstMessage()
+    		);
+		} catch (Exception $e) {
+			$this->view->message = array(
+    			'type'	=> 'error',
+    			'msg'	=> $e->getMessage()
+    		);
+		}
+		
+		$this->view->data = $postData;
+		$this->forward('login');
+	}
+	
+	public function logoutAction()
+	{
+		try{
+			
+			$this->getHelper('Auth')->logout('administer');
+			
+			$this->sessionSet('message', array(
+				'type'	=> 'success',
+				'msg'	=> '登出成功'
+			));
+			
+		} catch (Orbas_Auth_Exception $e){
+			$this->sessionSet('message', array(
+				'type' => 'error',
+				'msg'  => $e->getFirstMessage()
+			));
+		} catch (Exception $e) {
+			$this->sessionSet('message', array(
+    			'type'	=> 'error',
+    			'msg'	=> $e->getMessage()
+    		));
+		}
+		
+		$this->_helper->redirector('index', 'board');
+	}
+}
+
+?>

@@ -1,0 +1,102 @@
+<? $this->headScript()->captureStart() ?>
+
+$(function(){
+	$("a[rel^='prettyPhoto']").prettyPhoto({theme:'light_square'});
+});
+
+<? $this->headScript()->captureEnd()?>
+
+<div class="article">
+	<div class="portfolio pf_4col">
+		<ul id="itemContainer">
+			<li>
+				<div class="pf_box">				
+					<div class="fade-img2" data-lang="zoom-icon" >
+						<a href="/public/images/case/1/73338_547209055290916_50682839_n.jpg"  title="委託監工前的照片" rel="prettyPhoto[case1]" >
+							<img src="/public/images/case/1/73338_547209055290916_50682839_n.jpg" alt="委託監工前的照片" />
+						</a>
+						<a href="/public/images/case/1/388313_547209135290908_797398431_n.jpg" rel="prettyPhoto[case1]" title="委託監工前的照片"></a>
+						<a href="/public/images/case/1/397685_547209081957580_1955465649_n.jpg" rel="prettyPhoto[case1]" title="委託監工前的照片"></a>
+						<a href="/public/images/case/1/397733_547209095290912_927713391_n.jpg" rel="prettyPhoto[case1]" title="委託監工前的照片"></a>
+						<a href="/public/images/case/1/406720_547209038624251_411906757_n.jpg" rel="prettyPhoto[case1]" title="委託監工前的照片"></a>
+						<a href="/public/images/case/1/406763_547209008624254_667785965_n.jpg" rel="prettyPhoto[case1]" title="委託監工前的照片"></a>
+						<a href="/public/images/case/1/418058_547209031957585_1511225648_n.jpg" rel="prettyPhoto[case1]" title="委託監工前的照片"></a>
+						<a href="/public/images/case/1/542136_547209145290907_515340971_n.jpg" rel="prettyPhoto[case1]" title="委託監工前的照片"></a>
+						<a href="/public/images/case/1/543109_547209165290905_1471486149_n.jpg" rel="prettyPhoto[case1]" title="委託監工前的照片"></a>
+						<a href="/public/images/case/1/551230_547209011957587_408990571_n.jpg" rel="prettyPhoto[case1]" title="委託監工前的照片"></a>
+					</div>
+					<div class="pf_details">				
+						<h3><a href="#">業者裝潢前委託監工前的照片</a></h3>
+					</div>										
+				</div>
+			</li>
+			<li>
+				<div class="pf_box">				
+					<div class="fade-img2" data-lang="zoom-icon" >
+						<a href="/public/images/case/2/215061_536755553002933_2092811335_n.jpg" title="台北300壯士 健身中心" rel="prettyPhoto[case2]" >
+							<img src="/public/images/case/2/182332_536755559669599_1450330143_n.jpg" alt="台北300壯士 健身中心" />
+						</a>
+						<a href="/public/images/case/2/23719_536755586336263_672142683_n.jpg" title="台北300壯士 健身中心" rel="prettyPhoto[case2]" ></a>
+						<a href="/public/images/case/2/64001_536755619669593_410802351_n.jpg" title="台北300壯士 健身中心" rel="prettyPhoto[case2]" ></a>
+						<a href="/public/images/case/2/196209_536755646336257_1319675184_n.jpg" title="台北300壯士 健身中心" rel="prettyPhoto[case2]" ></a>
+						<a href="/public/images/case/2/224934_536755593002929_1499732808_n.jpg" title="台北300壯士 健身中心" rel="prettyPhoto[case2]" ></a>
+						<a href="/public/images/case/2/380709_536755596336262_609096794_n.jpg" title="台北300壯士 健身中心" rel="prettyPhoto[case2]" ></a>
+						<a href="/public/images/case/2/430950_536755616336260_1333042189_n.jpg" title="台北300壯士 健身中心" rel="prettyPhoto[case2]" ></a>
+					</div>
+					<div class="pf_details">				
+						<h3><a href="#">台北300壯士 健身中心</a></h3>
+					</div>										
+				</div>
+			</li>
+			<li>
+				<div class="pf_box">				
+					<div class="fade-img2" data-lang="zoom-icon" >
+						<a href="/public/images/case/3/30365_533062613372227_73086724_n.jpg" title="大同區-承德路" rel="prettyPhoto[case3]" >
+							<img src="/public/images/case/3/30365_533062613372227_73086724_n.jpg" />
+						</a>
+						<a href="/public/images/case/3/21783_533062913372197_1348039314_n.jpg" title="大同區-承德路" rel="prettyPhoto[case3]" ></a>
+						<a href="/public/images/case/3/35656_533062920038863_1217445451_n.jpg" title="大同區-承德路" rel="prettyPhoto[case3]" ></a>
+						<a href="/public/images/case/3/151067_533062766705545_572165430_n.jpg" title="大同區-承德路" rel="prettyPhoto[case3]" ></a>
+						<a href="/public/images/case/3/309133_533062630038892_1879724851_n.jpg" title="大同區-承德路" rel="prettyPhoto[case3]" ></a>
+						<a href="/public/images/case/3/399237_533062880038867_117333200_n.jpg" title="大同區-承德路" rel="prettyPhoto[case3]" ></a>
+						<a href="/public/images/case/3/401626_533062893372199_1460079275_n.jpg" title="大同區-承德路" rel="prettyPhoto[case3]" ></a>
+						<a href="/public/images/case/3/481028_533062900038865_752213277_n.jpg" title="大同區-承德路" rel="prettyPhoto[case3]" ></a>
+						<a href="/public/images/case/3/530514_533062833372205_2070340424_n.jpg" title="大同區-承德路" rel="prettyPhoto[case3]" ></a>
+						<a href="/public/images/case/3/532657_533062653372223_594348619_n.jpg" title="大同區-承德路" rel="prettyPhoto[case3]" ></a>
+						<a href="/public/images/case/3/549508_533062770038878_656621015_n.jpg" title="大同區-承德路" rel="prettyPhoto[case3]" ></a>
+						
+					</div>
+					<div class="pf_details">				
+						<h3><a href="#">大同區-承德路</a></h3>
+					</div>										
+				</div>
+			</li>
+			<li>
+				<div class="pf_box">				
+					<div class="fade-img2" data-lang="zoom-icon" >
+						<a href="/public/images/case/4/32400_533059720039183_1743771280_n.jpg" title="西門町" rel="prettyPhoto[case4]" >
+							<img src="/public/images/case/4/32400_533059720039183_1743771280_n.jpg" alt="Project Title" />
+						</a>
+						<a href="/public/images/case/4/32400_533059720039183_1743771280_n.jpg" title="西門町" rel="prettyPhoto[case4]" ></a>
+						<a href="/public/images/case/4/69459_533059686705853_430876247_n.jpg" title="西門町" rel="prettyPhoto[case4]" ></a>
+						<a href="/public/images/case/4/76445_533059786705843_1294286844_n.jpg" title="西門町" rel="prettyPhoto[case4]" ></a>
+						<a href="/public/images/case/4/155930_533059856705836_197900012_n.jpg" title="西門町" rel="prettyPhoto[case4]" ></a>
+						<a href="/public/images/case/4/252370_533059696705852_819339554_n.jpg" title="西門町" rel="prettyPhoto[case4]" ></a>
+						<a href="/public/images/case/4/302703_533060046705817_1223385163_n.jpg" title="西門町" rel="prettyPhoto[case4]" ></a>
+						<a href="/public/images/case/4/312809_533060006705821_1193076776_n.jpg" title="西門町" rel="prettyPhoto[case4]" ></a>
+						<a href="/public/images/case/4/391960_533060096705812_2035506724_n.jpg" title="西門町" rel="prettyPhoto[case4]" ></a>
+						<a href="/public/images/case/4/479982_533059713372517_2075400193_n.jpg" title="西門町" rel="prettyPhoto[case4]" ></a>
+						<a href="/public/images/case/4/486163_533059730039182_1590951409_n.jpg" title="西門町" rel="prettyPhoto[case4]" ></a>
+						<a href="/public/images/case/4/526725_533059750039180_1498989518_n.jpg" title="西門町" rel="prettyPhoto[case4]" ></a>
+						<a href="/public/images/case/4/530473_533060203372468_1542522729_n.jpg" title="西門町" rel="prettyPhoto[case4]" ></a>
+						<a href="/public/images/case/4/532519_533059460039209_1876043471_n.jpg" title="西門町" rel="prettyPhoto[case4]" ></a>
+						<a href="/public/images/case/4/549741_533060340039121_446076808_n.jpg" title="西門町" rel="prettyPhoto[case4]" ></a>
+					</div>
+					<div class="pf_details">				
+						<h3><a href="#">西門町</a></h3>
+					</div>										
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

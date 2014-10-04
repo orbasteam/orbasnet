@@ -1,0 +1,18 @@
+<? if($this->informs) { ?>
+<? foreach($this->informs as $inform) { ?>
+<li>
+	<a href="#">
+		<img src="<?= $inform['AVATAR'] ?: '/img/custom/avatar.jpg' ?>" alt="">
+		<div class="details">
+			<div class="name"><?= $inform['NAME']?></div>
+			<div class="message"><?= $inform['CONTENT']?></div>
+		</div>
+	</a>
+</li>
+<? } ?>
+<? } else { ?>
+<li><a href="#"><i class="glyphicon-message_empty"></i> No Message</a></li>
+<? } ?>
+<!-- li>
+	<a href="components-messages.html" class='more-messages'>Go to Message center <i class="icon-arrow-right"></i></a>
+</li -->

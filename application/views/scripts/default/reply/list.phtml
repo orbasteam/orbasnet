@@ -1,0 +1,33 @@
+<? if($this->rows) { ?>
+
+<? $user = Orbas_Auth::getUserInfo('SN', ROLE_MEMBER)?>
+<? foreach($this->rows as $row) { ?>
+<div class="media" style="margin-top:10px; padding-bottom: 10px" id="board-<?= $row['SN'] ?>" data-sn="<?= $row['SN'] ?>">
+	<a class="pull-left" href="#">
+		<img src="<?= $row['AVATAR'] ?: '/img/custom/avatar.jpg'?>" />
+	</a>
+	<div class="media-body">
+		<h4 class="media-heading">
+            <?= $row['NAME']?> <small><?= $this->timeParse($row['DATETIME']) ?></small>
+            
+            <? if($user == $row['USER_SN']) { ?>
+            <span class="pull-right boaord-action hide" id="board-action-<?= $row['SN'] ?>">
+                <a href="javascript:void(0)" title="delete" onclick="deleteContent(<?= $row['SN'] ?>)"><small><i class="icon-remove"></i></small></a>
+            </span>
+            <? } ?>
+        </h4>
+		<pre class="prettyprint"><?= $this->escape($row['CONTENT']) ?></pre>
+		
+		<div class="media-actions">
+    		<a href="javascript:void(0)" class="live-tipsy btn btn-blue <?= isset($this->userLike[$row['SN']][LIKE]) ? 'btn-red' : '' ?> btn-small" onclick="Orbas.like(this)" data-sn="<?= $row['SN'] ?>" data-type="like">
+                <i class="icon-thumbs-up"></i> <span><?= isset($this->like[$row['SN']][LIKE]) ? $this->like[$row['SN']][LIKE] : 0?></span>
+    		</a>
+    		
+    		<a href="javascript:void(0)" class="live-tipsy btn btn-blue <?= isset($this->userLike[$row['SN']][DISLIKE]) ? 'btn-red' : '' ?> btn-small" onclick="Orbas.dislike(this)" data-sn="<?= $row['SN'] ?>" data-type="dislike">
+                <i class="icon-thumbs-down"></i> <span><?= isset($this->like[$row['SN']][DISLIKE]) ? $this->like[$row['SN']][DISLIKE] : 0?></span>
+    		</a>
+    	</div>
+	</div>
+</div>
+<? } ?>
+<? } ?>

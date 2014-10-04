@@ -1,0 +1,80 @@
+<?php
+/**
+ * 後臺使用者
+ * 
+ * @author Ivan
+ *
+ */
+class Workbench_EmployeeController extends Orbas_Controller_Workbench
+{
+	/**
+	 * 登入
+	 * 
+	 */
+	public function loginAction()
+	{
+		$this->_helper->layout()->disableLayout();
+	}
+	
+	/**
+	 * 執行登入動作
+	 */
+	public function loginDoAction()
+	{
+	    $postData = $this->getRequest()->getPost();
+	    
+		try{
+		    $auth = $this->getHelper('Auth');
+		    $auth->setIdentityColumn('UID');
+			$auth->login($postData, 'administrator');
+			
+			$this->_helper->redirector('index');
+			
+		} catch (Exception $e) {
+		    $this->_handelErrorMessage($e);
+		}
+		
+		$this->view->data = $postData;
+		$this->forward('login');
+	}
+	
+	/**
+	 * 登出
+	 */
+	public function logoutAction()
+	{
+		$this->getHelper('Auth')->logout('administrator');
+		
+		$this->_helper->redirector('login');
+	}
+	
+	public function xmlAction()
+	{
+		$array = array(
+			'field' => array(
+				'ID' => array(
+					'table'		=> 'employee',
+					'type'		=> 'string',
+					'caption'	=> '帳號',
+					'source'	=> '',
+					'fields'	=> ''
+				),
+				
+				'GENDER' => array(
+					'table'		=> 'employee',
+					'type'		=> 'enum',
+					'caption'	=> '性別',
+					'source'	=> 'Gender',
+					'fields'	=> ''
+				)
+			)
+		);
+		
+		$config = new Zend_Config_Writer_Xml();
+		$config->setConfig(new Zend_Config($array));
+		$config->setFilename(APPLICATION_PATH . '/configs/models/workbench/employee.xml');
+		$config->write();
+	}
+	
+}
+?>

@@ -1,0 +1,270 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<!-- Apple devices fullscreen -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<!-- Apple devices fullscreen -->
+	<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	
+	<title><?= $this->informQuantity ? '(' . $this->informQuantity . ')' : '' ?> Orbas.net</title>
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css">
+	<!-- Bootstrap responsive -->
+	<link rel="stylesheet" href="/css/bootstrap/bootstrap-responsive.min.css">
+	<!-- jQuery UI -->
+	<link rel="stylesheet" href="/css/plugins/jquery-ui/smoothness/jquery-ui.css">
+	<link rel="stylesheet" href="/css/plugins/jquery-ui/smoothness/jquery.ui.theme.css">
+	
+	<link rel="stylesheet" href="/js/plugins/toastr/toastr.css" />
+	<link rel="stylesheet" href="/js/plugins/tipsy/tipsy.css" />
+    <link rel="stylesheet" href="/js/plugins/pretifier/prettify.css" />
+	
+	<!-- Theme CSS -->
+	<link rel="stylesheet" href="/css/style.css" />
+	<!-- Color CSS -->
+	<link rel="stylesheet" href="/css/themes.css" />
+	
+	<link rel="stylesheet" href="/css/custom.css" />
+    <?= $this->headLink()?>
+
+	<!-- jQuery -->
+	<script src="/js/jquery.min.js"></script>
+	
+	<!-- Nice Scroll -->
+	<script src="/js/plugins/nicescroll/jquery.nicescroll.min.js"></script>
+	<!-- imagesLoaded -->
+	<script src="/js/plugins/imagesLoaded/jquery.imagesloaded.min.js"></script>
+	<!-- jQuery UI -->
+	<script src="/js/plugins/jquery-ui/jquery.ui.core.min.js"></script>
+	<script src="/js/plugins/jquery-ui/jquery.ui.widget.min.js"></script>
+	<script src="/js/plugins/jquery-ui/jquery.ui.mouse.min.js"></script>
+	<script src="/js/plugins/jquery-ui/jquery.ui.resizable.min.js"></script>
+	<script src="/js/plugins/jquery-ui/jquery.ui.sortable.min.js"></script>
+	<script src="/js/plugins/jquery-ui/jquery.ui.draggable.min.js"></script>
+	
+	<!-- slimScroll -->
+	<script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="/js/bootstrap.min.js"></script>
+	<!-- Bootbox -->
+	<script src="/js/plugins/bootbox/jquery.bootbox.js"></script>
+	<!-- Bootbox -->
+	<script src="/js/plugins/form/jquery.form.min.js"></script>
+	<!-- Validation -->
+	<script src="/js/plugins/validation/jquery.validate.min.js"></script>
+	<script src="/js/plugins/validation/additional-methods.min.js"></script>
+
+	<script type="text/javascript" src="/js/plugins/tipsy/jquery.tipsy.js"></script>
+	<script type="text/javascript" src="/js/plugins/pretifier/prettify.js"></script>
+	<script type="text/javascript" src="/js/ajaxq.js"></script>
+	
+	<!-- Theme framework -->
+	<script src="/js/eakroko.min.js"></script>
+	<!-- Theme scripts -->
+	<script src="/js/application.js"></script>
+	<!-- Just for demonstration -->
+	<script src="/js/demonstration.min.js"></script>
+	
+	<script type="text/javascript" src="/js/plugins/toastr/toastr.min.js"></script>
+	<script type="text/javascript" src="/js/orbas.js"></script>
+	
+	<?= $this->headScript()?>
+
+	<!--[if lte IE 9]>
+		<script src="/js/plugins/placeholder/jquery.placeholder.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('input, textarea').placeholder();
+			});
+		</script>
+	<![endif]-->
+	
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="/img/favicon.ico" />
+	<!-- Apple devices Homescreen icon -->
+	<link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-precomposed.png" />
+
+    <?= $this->headStyle()?>
+    
+    <script type="text/javascript">
+    var timer;
+	$(function(){
+		
+		$(document).on('mouseenter', 'a.live-tipsy', function(){
+
+	    	var $this = $(this);
+
+	        if($this.find('span').text() != 0) {
+	        	$this.tipsy({trigger: 'hoverable', gravity: 's', html : true});
+	            $this.attr('title', 'loading...');
+	            $this.tipsy('show');
+	        	
+	        	timer = setTimeout(function(){
+
+	        		if($this.attr('original-title') == 'loading...') {
+	                    
+	                	if($this.attr('data-type') == 'like') {
+	                        var _url = '<?= $this->simpleUrl('whos.like', 'like', 'default') ?>';
+	                    } else {
+	                        var _url = '<?= $this->simpleUrl('whos.dislike', 'like', 'default') ?>';
+	                    }
+
+	                    $.getJSON(_url + '/board_sn/' + $this.attr('data-sn') , function(response){
+
+	                    	var _text = '';
+	                        if(response.length == 0) {
+	                            _text = '無資料';
+	                        } else {
+	                        	$.each(response, function(i, val){
+	                                _text += val + ', ';
+	                            });
+	                        }
+
+	                        $this.tipsy('hide');
+	                        $this.attr('title', _text);
+	                        $this.tipsy('show');
+	                    });
+	            	}
+	        	}, 500);
+	        }
+	    	
+	    }).on('mouseleave', 'a.live-tipsy', function(){
+	        clearTimeout(timer);
+	    });
+
+	    var timerMessage = setInterval(function(){
+
+	    	$.ajaxq('orbas', {
+	    	    url: '<?= $this->simpleUrl('get.inform', 'inform', 'default') ?>',
+	    	    type : 'get'
+	    	}).done(function( count ) {
+	    		messageInform(count);
+	    	});
+	    	
+	        reloadOnlineMember();
+	        
+	    }, 10000);
+
+	    reloadOnlineMember();
+    });
+    
+    var currentInformQuantity = <?= $this->informQuantity ?: 0 ?>;
+    
+    $(function(){
+        <? if($this->message) { ?>
+        Orbas.message('<?= $this->message['type'] ?>', '<?= $this->message['message'] ?>');
+        <? } ?>
+
+        $("#unread-quantity").click(function(){
+
+            if($("#inform-quantity").text() != '' || $("#informed-message").html().trim() == '')
+			$("#informed-message").load('<?= $this->simpleUrl('index', 'inform', 'default') ?>', function(){
+				messageInform(0);
+    		});
+        });
+    });
+
+    function reloadOnlineMember() {
+
+    	$.ajaxq('orbas', {
+    	    url: '<?= $this->simpleUrl('online.member', 'index', 'default') ?>',
+    	    type : 'get'
+    	}).done(function( html ) {
+    		$("#online-member").html(html);
+    	});
+    }
+
+    function messageInform(count) {
+
+    	if(count == 0) {
+    		$("#inform-quantity").text('');
+    		$("title").text('Orbas.net');
+    		currentInformQuantity = 0;
+    	} else {
+    		$("#inform-quantity").text(count);
+    		$("title").text('(' + count + ') Orbas.net');
+
+    		<? if($this->user['NOTIFICATION']) { ?>
+    		if(currentInformQuantity != count) {
+        		
+    			Orbas.notification('您有 ' + count + '則訊息', {
+    				onclick : function(){
+        				$(window).focus();
+    				}
+        		});
+    		}
+    		<? } ?>
+    		
+    		currentInformQuantity = count;
+    	}
+    }
+    
+    </script>
+	
+</head>
+
+<body data-layout="fixed" data-layout-sidebar="fixed" class="sidebar-right">
+    
+	<div id="navigation" class="navbar-fixed-top">
+		<div class="container-fluid">
+			<a href="/" id="brand">Orbas</a>
+			
+			<ul class="main-nav">
+                <li><a href="<?= $this->simpleUrl('index', 'index') ?>">塗鴉牆</a></li>
+			</ul>
+			
+			<div class="user">
+				
+				<ul class="icon-nav">
+				    <li class="dropdown">
+                        <a href="javascript:void(0)" class='dropdown-toggle' data-toggle="dropdown" id="unread-quantity">
+                            <i class="icon-envelope"></i><span class="label label-lightred" id="inform-quantity"><?= $this->informQuantity ?: ''?></span>
+                        </a>
+                        <ul class="dropdown-menu pull-right message-ul" id="informed-message">
+                        </ul>
+                    </li>
+				    
+				    <li>
+				        <a href="<?= $this->simpleUrl('change.log', 'index', 'default') ?>" rel="tooltip" title="更新記錄" data-placement="bottom">
+				            <i class="glyphicon-log_book"></i>
+				            <? if($this->hasUpdate) { ?>
+				            <span class="label label-lightred">New</span>
+				            <? } ?>
+				        </a>
+				    </li>
+				</ul>
+				
+				<div class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					   <?= Orbas_Auth::getUserInfo('NAME', ROLE_MEMBER); ?>
+					   <img src="<?= Orbas_Auth::getUserInfo('AVATAR', ROLE_MEMBER) ?: '/img/custom/avatar.jpg'?>" alt="" style="max-height: 27px">
+					</a>
+					<ul class="dropdown-menu pull-right">
+                        <li><a href="<?= $this->simpleUrl('index', 'profile', 'default') ?>"><i class="icon-user"></i> Profile</a></li>
+						<li><a href="<?= $this->simpleUrl('logout', 'account', 'default') ?>"><i class="icon-signout"></i> logout</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container nav-fixed" id="content">
+		<div id="main" style="margin-left:0">
+			<?= $this->layout()->content ?>
+
+			<div id="left">
+	           <div class="subnav">
+                    <div class="subnav-title">
+                    	<a href="#" class="toggle-subnav"><i class="icon-angle-down"></i><span>Online Member</span></a>
+                    </div>
+                    <div id="online-member"></div>
+                </div>
+            </div>
+		</div>
+    </div>
+		
+	</body>
+</html>
