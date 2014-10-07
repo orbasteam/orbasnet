@@ -4,7 +4,7 @@
 <? foreach($this->rows as $row) { ?>
 <div class="media" id="board-<?= $row['SN'] ?>" data-sn="<?= $row['SN'] ?>">
 	<a href="#" class="pull-left">
-		<img src="<?= $row['AVATAR'] ?: '/img/custom/avatar.jpg'?>" />
+		<img src="<?= $row['AVATAR'] ? $row['AVATAR'] . '?' . strtotime(date('Y-m-d H:i:s')) : '/img/custom/avatar.jpg'?>" />
 	</a>
 	
 	<div class="media-body">
