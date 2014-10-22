@@ -16,7 +16,7 @@
             </span>
             <? } ?>
         </h4>
-		<pre class="prettyprint"><?= $this->escape($row['CONTENT']) ?></pre>
+		<pre class="prettyprint"><?= $row['CONTENT'] ?></pre>
 		
 		<div class="media-actions">
     		<a href="javascript:void(0)" class="live-tipsy btn btn-blue <?= isset($this->userLike[$row['SN']][LIKE]) ? 'btn-red' : '' ?> btn-small" onclick="Orbas.like(this)" data-sn="<?= $row['SN'] ?>" data-type="like">
